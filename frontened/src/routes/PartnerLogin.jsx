@@ -1,7 +1,26 @@
 import React from 'react'
 import '../styles/auth.css'
-
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'  
 const PartnerLogin = () => {
+  const navigate = useNavigate(); 
+  const handleSubmit = async (e) => {
+    e.preventDefault();   
+
+    const email = e.target.email.value;
+    const password = e.target.password.value; 
+    const response = await axios.post('http://localhost:3000/api/auth/food-partner/login', {
+      email,
+      password  
+    },
+  {
+    withCredentials: true
+  })
+
+    console.log(response.data)
+
+    navigate("/create-food")
+  };  
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -10,8 +29,8 @@ const PartnerLogin = () => {
             <rect width="600" height="400" rx="12" fill="url(#g)" />
             <defs>
               <linearGradient id="g" x1="0" x2="1">
-                <stop offset="0" stop-color="rgba(96,165,250,0.12)" />
-                <stop offset="1" stop-color="transparent" />
+                <stop offset="0" stopColor="rgba(96,165,250,0.12)" />
+                <stop offset="1" stopColor="transparent" />
               </linearGradient>
             </defs>
           </svg>
@@ -34,14 +53,14 @@ const PartnerLogin = () => {
             </div>
           </div>
 
-          <form className="auth-form" onSubmit={(e)=>e.preventDefault()}>
+          <form className="auth-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <label>Email</label>
-              <input type="email" placeholder="business@example.com" />
+              <input type="email" name='email' placeholder="business@example.com" />
             </div>
             <div className="form-row">
               <label>Password</label>
-              <input type="password" placeholder="Your password" />
+              <input type="password" name='password' placeholder="Your password" />
             </div>
 
             <div className="actions">

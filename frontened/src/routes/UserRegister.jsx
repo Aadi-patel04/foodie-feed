@@ -1,7 +1,46 @@
 import React from 'react'
 import '../styles/auth.css'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 
 const UserRegister = () => {
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+
+    const firstName = e.target.firstName.value;
+    // console.log(firstName);
+    const lastName = e.target.lastName.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+//     console.log({
+//   firstName,
+//   lastName,
+//   email,
+//   password
+// });
+
+
+    const response = await axios.post('http://localhost:3000/api/auth/user/register', {
+      fullName: firstName + ' ' + lastName,
+      email,
+      password
+    },
+  {
+    withCredentials: true
+  })
+
+    console.log(response.data)
+
+    navigate("/")
+  };
+
+
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -10,17 +49,17 @@ const UserRegister = () => {
             <rect width="600" height="400" rx="12" fill="url(#g)" />
             <defs>
               <linearGradient id="g" x1="0" x2="1">
-                <stop offset="0" stop-color="rgba(96,165,250,0.12)" />
-                <stop offset="1" stop-color="transparent" />
+                <stop offset="0" stopColor="rgba(96,165,250,0.12)" />
+                <stop offset="1" stopColor="transparent" />
               </linearGradient>
             </defs>
           </svg>
-          <div style={{marginTop:18,fontSize:14,color:'var(--muted)'}}>Discover trending meals and share your favorites.</div>
+          <div style={{ marginTop: 18, fontSize: 14, color: 'var(--muted)' }}>Discover trending meals and share your favorites.</div>
         </div>
 
         <div className="auth-content">
           <div className="auth-header">
-            <div style={{display:'flex',alignItems:'center',gap:12}}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <div className="logo-pill">FF</div>
               <div>
                 <h3 className="title">Create account</h3>
@@ -34,20 +73,23 @@ const UserRegister = () => {
             </div>
           </div>
 
-          <form className="auth-form" onSubmit={(e)=>e.preventDefault()}>
+          <form className="auth-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <label>Name</label>
-              <input type="text" placeholder="Your full name" />
+              <div className="name-row">
+                <input type="text" name="firstName" placeholder="First name" />
+                <input type="text" name="lastName" placeholder="Last name" />
+              </div>
             </div>
             <div className="form-row">
               <label>Email</label>
-              <input type="email" placeholder="you@example.com" />
+              <input type="email" name="email" placeholder="you@example.com" />
             </div>
             <div className="form-row">
               <label>Password</label>
-              <input type="password" placeholder="Create a strong password" />
+              <input type="password" name="password" placeholder="Create a strong password" />
             </div>
-            
+
 
             <div className="form-row">
               <button className="btn" type="submit">Create account</button>

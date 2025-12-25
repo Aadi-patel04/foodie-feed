@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(cors({
-  origin:process.env.CORS_ORIGIN, // frontend / postman origin
+  origin:"http://localhost:5173", // frontend / postman origin
   credentials: true               // ALLOW COOKIES
 }));
 

@@ -1,7 +1,38 @@
 import React from 'react'
 import '../styles/auth.css'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'  
 
 const PartnerRegister = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+
+    const businessName = e.target.businessName.value;
+    const contactPerson = e.target.contactPerson.value;
+    const phoneNumber = e.target.phoneNumber.value;
+    const address = e.target.address.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;   
+
+    const response = await axios.post('http://localhost:3000/api/auth/food-partner/register', {
+      name:businessName,
+      contactName:contactPerson,
+      phone:phoneNumber,
+      address,
+      email,
+      password
+    },
+  {
+    withCredentials: true
+  })
+
+    console.log(response.data)
+
+    navigate("/create-food")
+  };
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -10,8 +41,8 @@ const PartnerRegister = () => {
             <rect width="600" height="400" rx="12" fill="url(#g)" />
             <defs>
               <linearGradient id="g" x1="0" x2="1">
-                <stop offset="0" stop-color="rgba(96,165,250,0.12)" />
-                <stop offset="1" stop-color="transparent" />
+                <stop offset="0" stopColor="rgba(96,165,250,0.12)" />
+                <stop offset="1" stopColor="transparent" />
               </linearGradient>
             </defs>
           </svg>
@@ -34,18 +65,29 @@ const PartnerRegister = () => {
             </div>
           </div>
 
-          <form className="auth-form" onSubmit={(e)=>e.preventDefault()}>
+          <form className="auth-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <label>Business name</label>
-              <input type="text" placeholder="Restaurant or brand name" />
+              <input type="text"name='businessName' placeholder="Restaurant or brand name" />
+            </div>
+            <div className="form-row">
+              <label>Contact</label>
+              <div className="contact-row">
+                <input type="text" name="contactPerson" placeholder="Contact person name" />
+                <input type="tel" className="phone-input" name="phoneNumber" placeholder="Phone number" />
+              </div>
+            </div>
+            <div className="form-row">
+              <label>Address</label>
+              <input type="text" name='address' placeholder="Business address" />
             </div>
             <div className="form-row">
               <label>Contact email</label>
-              <input type="email" placeholder="business@example.com" />
+              <input type="email" name='email' placeholder="business@example.com" />
             </div>
             <div className="form-row">
               <label>Password</label>
-              <input type="password" placeholder="Create a password" />
+              <input type="password" name='password' placeholder="Create a password" />
             </div>
 
             <div className="form-row">
