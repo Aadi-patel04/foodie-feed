@@ -1,56 +1,67 @@
-import React from 'react'
-import { useState,useEffect } from 'react'
-
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import "../../src/styles/HomeReels.css";
+import axios from "axios";
 
 const Home = () => {
-  const [videos, setVideos] = useState([])
-  // Autoplay behavior is handled inside ReelFeed
+  const containerRef = useRef(null);
+  const [reels, setReels] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/food", { withCredentials: true })
-      .then(response => {
+    axios
+      .get("http://localhost:3000/api/food", { withCredentials: true })
+      .then((res) => setReels(res.data.foodItems))
+      .catch(console.error);
+  }, []);
 
-        console.log(response.data);
+  useEffect(() => {
+    if (!reels.length) return;
 
-        setVideos(response.data.foodItems)
-      })
-      .catch(() => { /* noop: optionally handle error */ })
-  }, [])
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target.querySelector("video");
+          if (!video) return;
 
-  // Using local refs within ReelFeed; keeping map here for dependency parity if needed
+          entry.isIntersecting
+            ? video.play().catch(() => {})
+            : video.pause();
+        });
+      },
+      { threshold: 0.7 }
+    );
 
-  async function likeVideo(item) {
+    const sections = containerRef.current.querySelectorAll(".reel");
+    sections.forEach((s) => observer.observe(s));
 
-    const response = await axios.post("http://localhost:3000/api/food/like", { foodId: item._id }, { withCredentials: true })
-
-    if (response.data.like) {
-      console.log("Video liked");
-      setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount + 1 } : v))
-    } else {
-      console.log("Video unliked");
-      setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount - 1 } : v))
-    }
-
-  }
-
-  async function saveVideo(item) {
-    const response = await axios.post("http://localhost:3000/api/food/save", { foodId: item._id }, { withCredentials: true })
-
-    if (response.data.save) {
-      setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount + 1 } : v))
-    } else {
-      setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount - 1 } : v))
-    }
-  }
+    return () => observer.disconnect();
+  }, [reels]);
 
   return (
-    <ReelFeed
-      items={videos}
-      onLike={likeVideo}
-      onSave={saveVideo}
-      emptyMessage="No videos available."
-    />
-  )
-}
+    <div className="reels-container" ref={containerRef}>
+      {reels.map((reel) => (
+        <section className="reel" key={reel._id}>
+          <video
+            src={reel.video}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="reel-video"
+          />
 
-export default Home
+          <div className="reel-gradient" />
+
+          <div className="reel-overlay bottom">
+            <p>{reel.description}</p>
+            <Link to={`/food-partner/${reel.foodPartner}`} className="reel-button">
+              Visit Store
+            </Link>
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+};
+
+export default Home;
