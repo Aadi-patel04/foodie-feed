@@ -1,0 +1,251 @@
+/* ================= ROOT ================= */
+
+.ig-profile {
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
+/* ================= PROFILE HEADER ================= */
+
+.ig-profile-header {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 20px;
+}
+
+/* AVATAR */
+
+.ig-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-300), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.ig-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* DETAILS */
+
+.ig-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ig-details h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.ig-address {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.ig-bio {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* ================= STATS ================= */
+
+.ig-stats {
+  display: flex;
+  gap: 36px;
+  margin-top: 14px;
+}
+
+.ig-stats div {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.ig-stats strong {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+/* ================= ACTIONS ================= */
+
+.ig-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.ig-btn {
+  padding: 6px 18px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ig-btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.ig-btn.secondary {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* ================= GRID ================= */
+
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.ig-tile {
+  aspect-ratio: 1 / 1;
+  background: #000;
+  overflow: hidden;
+}
+
+.ig-tile video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ================= STATES ================= */
+
+.no-videos {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  color: var(--muted);
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.05)
+  );
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.9; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.9; }
+}
+
+/* ================= RESPONSIVE ================= */
+/* ================= RESPONSIVE (KEEP SAME LAYOUT) ================= */
+
+@media (max-width: 768px) {
+  .ig-profile {
+    padding: 14px 10px;
+  }
+
+  .ig-profile-header {
+    gap: 20px;            /* smaller gap */
+  }
+
+  .ig-avatar {
+    width: 90px;
+    height: 90px;
+    font-size: 1.6rem;
+  }
+
+  .ig-details h2 {
+    font-size: 1.1rem;
+  }
+
+  .ig-address {
+    font-size: 0.8rem;
+  }
+
+  .ig-bio {
+    font-size: 0.85rem;
+  }
+
+  .ig-stats {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* 🔒 KEEP ROW LAYOUT */
+  .ig-profile-header {
+    flex-direction: row;     /* ✅ force row */
+    align-items: flex-start;
+    text-align: left;
+    gap: 14px;
+  }
+
+  .ig-avatar {
+    width: 72px;
+    height: 72px;
+    font-size: 1.2rem;
+  }
+
+  .ig-details {
+    gap: 4px;
+  }
+
+  .ig-details h2 {
+    font-size: 1rem;
+  }
+
+  .ig-address {
+    font-size: 0.75rem;
+  }
+
+  .ig-bio {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .ig-stats {
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .ig-stats div {
+    font-size: 0.7rem;
+  }
+
+  .ig-stats strong {
+    font-size: 0.9rem;
+  }
+
+  .ig-actions {
+    gap: 8px;
+  }
+
+  .ig-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Instagram keeps 3 columns even on mobile */
+  .ig-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

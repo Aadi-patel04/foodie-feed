@@ -1,0 +1,121 @@
+/* Mobile-first styles for CreateFood page */
+:root{
+  --cf-gap: 12px;
+}
+
+.create-food-root{
+  padding: 16px;
+  max-width: 720px;
+  margin: 12px auto;
+}
+
+.create-food-form{
+  display: flex;
+  flex-direction: column;
+  gap: var(--cf-gap);
+  background: var(--surface);
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.cf-title{
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.cf-label{
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.cf-input,
+.cf-textarea{
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.cf-file{
+  padding: 8px 10px;
+}
+
+.cf-preview{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.02));
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.cf-preview-meta{
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.cf-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.cf-submit{
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.cf-cancel{
+  background: transparent;
+  color: var(--accent-600);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+/* Improved filebox and preview */
+.cf-field{ display:flex; flex-direction:column; gap:8px }
+.cf-filebox{ display:flex; align-items:center; border:1px dashed var(--border); padding:18px; border-radius:12px; background:var(--surface-2); cursor:pointer; transition: border-color 160ms var(--transition), box-shadow 160ms var(--transition), transform 160ms var(--transition); min-height:140px }
+.cf-filebox.drag-active{ border-color: var(--accent); box-shadow: 0 12px 30px rgba(37,99,235,0.08); transform: translateY(-3px) }
+.cf-filebox:hover{ border-color: rgba(37,99,235,0.5); box-shadow: 0 8px 22px rgba(37,99,235,0.06) }
+.cf-filebox.empty{ justify-content:center }
+.cf-filebox.has-file{ justify-content:flex-start }
+.cf-input-file{ display:none }
+.cf-filebox-inner{ display:flex; gap:14px; align-items:center }
+.cf-file-icon{ width:64px; height:64px; display:flex; align-items:center; justify-content:center; color:var(--accent); flex:0 0 64px }
+.cf-file-placeholder{ color:var(--muted); font-size:1rem; text-align:center }
+.cf-file-text{ color:var(--muted); font-size:0.95rem }
+.cf-file-name{ color:var(--text); font-weight:700 }
+.cf-file-size{ color:var(--muted); font-size:0.85rem }
+
+.cf-preview{ margin-top:8px; border-radius:10px; overflow:hidden; background:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.02)); border:1px solid var(--border) }
+.cf-video{ width:100%; height:auto; display:block }
+.cf-preview-meta{ padding:8px; font-size:0.9rem; color:var(--muted) }
+.cf-error{ color:#ff4d4f; font-size:0.9rem; padding:6px 0 }
+
+@media (min-width:720px){
+  .create-food-form{ padding:20px }
+  .cf-filebox{ padding:14px }
+  .cf-actions{ justify-content:flex-end }
+}
+
+/* Larger screens */
+@media (min-width: 720px){
+  .create-food-root{
+    padding: 20px;
+  }
+  .create-food-form{
+    padding: 20px;
+  }
+  .cf-title{
+    font-size: 1.25rem;
+  }
+}

@@ -19,4 +19,7 @@ router.get("/",
     foodControler.getFoodItems
 )
 
+/*GET /api/food/food-partner/:id */
+
+
 module.exports = router;
