@@ -3,6 +3,7 @@ const foodControler = require("../controllers/food.controller")
 const authFoodPartnerMiddleware = require("../middlewares/auth.middleware")
 const multer = require("multer")
 
+
 const router = express.Router();
 
 const upload = multer({
@@ -17,6 +18,16 @@ foodControler.createFood)
 router.get("/",
     authFoodPartnerMiddleware.authUserMiddleware,
     foodControler.getFoodItems
+)
+
+router.post("/like",
+    authFoodPartnerMiddleware.authUserMiddleware,
+    foodControler.likeFood
+)
+
+router.post("/save",
+    authFoodPartnerMiddleware.authUserMiddleware,
+    foodControler.saveFood
 )
 
 /*GET /api/food/food-partner/:id */

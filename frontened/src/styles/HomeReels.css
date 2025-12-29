@@ -18,6 +18,7 @@
   touch-action: pan-y;
   overscroll-behavior: contain;
   background: #000;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 12px));
 }
 
 .reel {
@@ -43,13 +44,13 @@
   position: absolute;
   left: 16px;
   right: 16px;
-  z-index: 5;
+  z-index: 22;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-bottom: env(safe-area-inset-bottom, 12px);
 }
-.reel-overlay.bottom { bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+.reel-overlay.bottom { bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 
 .reel-description {
   color: #fff;
@@ -58,11 +59,11 @@
   line-height: 1.2em;
   max-width: 85%;
   margin: 0;
-  padding: 6px 10px;
+  padding: 0; /* plain text (no pill) on desktop and mobile) */
   box-sizing: border-box;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(6px) saturate(1.1);
-  border-radius: 10px;
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 0;
   /* WebKit line-clamp */
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -85,7 +86,8 @@
   background: linear-gradient(180deg, #3b82f6 0%, #1e40af 100%);
   color: #fff;
   border: none;
-  padding: clamp(8px, 2.2vw, 12px) clamp(12px, 4vw, 20px);
+  padding: clamp(8px, 1.2vw, 12px) clamp(10px, 2.8vw, 18px);
+  max-width: 220px;
   border-radius: 999px;
   font-weight: 700;
   font-size: clamp(0.95rem, 2vw, 1rem);
@@ -124,7 +126,7 @@
 
 .reel-button:focus { outline: 3px solid rgba(99,176,50,0.18); outline-offset: 2px; }
 
-@media (max-width: 520px) { .reel-button { width: 100%; justify-content: center; padding-left: 14px } }
+@media (max-width: 520px) { .reel-button { width: auto; max-width: 170px; justify-content: center; padding-left: 12px; padding-right:12px; align-self:flex-start } }
 
 /* Full-width on small screens for easier tapping */
 @media (max-width: 520px) {
@@ -135,9 +137,28 @@
 .reel-overlay { gap: 8px; }
 
 @media (max-width: 520px) {
-  .reel-overlay { gap: 12px; left: 12px; right: 12px; }
-  .reel-description { font-size: 0.95rem; max-width: 100%; padding: 6px 8px; max-height: calc(1.2em * 2 + 10px); }
-  .reel-button { width: 100%; padding-left: 12px; padding-right: 12px; justify-content: center; }
+  .reel-overlay { gap: 10px; left: 12px; right: 12px; }
+  .reel-description {
+    font-size: 0.95rem;
+    max-width: 100%;
+    padding: 0; /* show plain text only */
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    max-height: calc(1.2em * 2 + 2px);
+  }
+
+  /* Make Visit Store compact on mobile */
+  .reel-button {
+    width: auto;
+    max-width: 160px;
+    padding: 8px 12px;
+    align-self: flex-start;
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 380px) {
@@ -158,4 +179,63 @@
 @media (min-width: 768px) {
   .reel-description { font-size: 1.05rem; max-width: 60%; }
   .reel-button { padding: 10px 16px; }
+}
+
+/* Action bar on right side with icons and counts */
+.action-bar {
+  position: absolute;
+  right: 14px;
+  bottom: 160px;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+.action-button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.action-button svg { width: 36px; height: 36px; display: block; opacity: 0.95; }
+.action-count { color: #fff; font-size: 0.85rem; margin-top: 4px; }
+
+.reel-button { position: relative; z-index: 24; }
+
+/* visual states for liked / saved */
+.action-button.liked svg { filter: drop-shadow(0 4px 8px rgba(244,63,94,0.18)); }
+.action-button.liked .action-count { color: #f43f5e; }
+.action-button.saved svg { opacity: 1; transform: scale(1.03); }
+
+/* Bottom navigation */
+.bottom-nav {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(env(safe-area-inset-bottom, 6px));
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  align-items: center;
+  background: rgba(0,0,0,0.45);
+  border-radius: 14px;
+  backdrop-filter: blur(8px) saturate(1.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.nav-item { color: #fff; text-decoration: none; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.85rem; padding: 6px 8px; }
+.nav-item svg { opacity: 0.98; display:block }
+
+@media (min-width: 768px) {
+  .action-bar { right: 28px; bottom: 160px; }
+  .bottom-nav { left: 24px; right: 24px; bottom: 20px; }
 }
