@@ -7,13 +7,15 @@ const foodPartnerRoutes = require('./routes/food-partner.routes')
 
 const app = express();
 
-app.use(express.json())
-app.use(cookieParser())
 
 app.use(cors({
   origin:"http://localhost:5173", // frontend / postman origin
   credentials: true               // ALLOW COOKIES
 }));
+
+
+app.use(express.json())
+app.use(cookieParser())
 
 app.get("/",(req,res)=>{
     res.send("request is working")

@@ -44,7 +44,7 @@ const UserRegister = () => {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div className="auth-visual" aria-hidden>
+        <div className="auth-visual" aria-hidden="true">
           <svg viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="600" height="400" rx="12" fill="url(#g)" />
             <defs>
