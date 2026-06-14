@@ -2,9 +2,6 @@
 
 A modern MERN Stack food discovery platform inspired by Zomato, featuring a reels-style food video feed, restaurant exploration, user authentication, and an engaging user experience for discovering trending dishes and restaurants.
 
-## 🚀 Live Demo
-
-Add your deployed link here
 
 ## 📌 Overview
 
@@ -152,7 +149,6 @@ Aditya Patel
 
 GitHub: https://github.com/Aadi-patel04
 
-LinkedIn: https://www.linkedin.com/in/aditya-patel-0878b3269
 
 ## ⭐ Support
 
